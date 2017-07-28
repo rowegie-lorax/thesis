@@ -1,0 +1,7 @@
+{
+    "require": {
+        "phroute/phroute": "^2.1",
+        "twbs/bootstrap": "^3.3",
+        "components/jquery": "^3.2"
+    }
+}

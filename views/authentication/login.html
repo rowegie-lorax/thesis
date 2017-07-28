@@ -1,0 +1,32 @@
+<div class="row">
+	<div class="col-sm-4"></div>
+	<div class="col-sm-4">
+		<div class="log-section">
+			<h1>Login to Your Account </h1><br>
+			<form ng-submit="vm.login()">
+			  <div class="form-group">
+			    <input 
+			    	type="email" 
+			    	class="form-control"  
+			    	placeholder="Email Address" 
+			    	ng-model="vm.user.email" required>
+			  </div>
+			  <div class="form-group">
+			    <input 
+			    	type="password" 
+			    	class="form-control" 
+			    	placeholder="Password" 
+			    	ng-model="vm.user.password" required>
+			  </div>
+			  <div class="checkbox">
+			    <label><input type="checkbox"> Remember me</label>
+			  </div>
+			  <button type="submit" class="btn btn-primary">Login</button>
+			</form>
+			<div class="login-help">
+				<a ui-sref="register">Register</a> <!-- - <a href="#">Forgot Password</a> -->
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-4"></div>
+</div>

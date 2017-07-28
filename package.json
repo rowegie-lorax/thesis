@@ -1,0 +1,15 @@
+{
+  "name": "angularphp",
+  "version": "1.0.0",
+  "description": "PHP and angular",
+  "main": "index.js",
+  "dependencies": {
+    "@uirouter/angularjs": "^1.0.5",
+    "angular": "^1.6.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rowegie Lambojon",
+  "license": "MIT"
+}
