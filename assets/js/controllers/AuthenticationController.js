@@ -5,38 +5,42 @@
 		.module('app')
 		.controller('AuthenticationController', AuthenticationController);
 
-	AuthenticationController.$inject = ['$http'];
+	AuthenticationController.$inject = ['$http', 'LocalStorage'];
 
-	function AuthenticationController($http){
+	function AuthenticationController($http, LocalStorage){
 		var vm = this;
+
+		vm.message = "Asdf";
 
 		vm.user = {
 			email: '',
 			password: '',
 			confirmPassword: '',
 			firstName: '',
-			lastName:'',
-
+			lastName:''
 		}
 
 		vm.login = function(){
 			$http({
-				url: 'http://localhost/app/controllers/user/login.php',
+				url: 'http://localhost/thesis/controllers/user/login.php',
 				method: 'POST',
 				data: vm.user
 			}).then(function(response){
-				console.log(response);
+				LocalStorage.set('is_logged_in', true);
+				LocalStorage.set('user_id', response.data.id);
+				
+	
 			})
 
 		}
 
 		vm.register = function(){
 			$http({
-				url: 'http://localhost/app/controllers/user/create.php',
+				url: 'http://localhost/thesis/controllers/user/create.php',
 				method: 'POST',
 				data: vm.user
 			}).then(function(response){
-				console.log(response);
+				console.log(response.data);
 			})
 
 

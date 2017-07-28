@@ -12,7 +12,9 @@
     	$stateProvider
     		.state('home', {
     			url: '/home',
-    			templateUrl: 'views/index.html'
+    			templateUrl: 'views/layout/home.html',
+                controller: 'MainController',
+                controllerAs: 'vm'
     		})
     		.state('login', {
     			url: '/login',
@@ -26,6 +28,12 @@
     			controller: 'AuthenticationController',
     			controllerAs: 'vm'
     		})
+            // .state('profile',{
+            //     url: '/profile',
+            //     templateUrl: 'views/authentication/register.html',
+            //     controller: 'AuthenticationController',
+            //     controllerAs: 'vm' 
+            // })
 
     	$urlRouterProvider.otherwise('/home');
     }

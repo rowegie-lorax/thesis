@@ -16,13 +16,10 @@
 	$database = new Database();
 	$db = $database->getConnection();
 	$user = new User($db);
-	$data = json_decode(file_get_contents("php://input"));
 
-	$user->email = $data->email;
-	$user->password = $data->password;
+	$user->id = $_GET['user_id'];
 
-
-	echo json_encode($user->login());
+	echo json_encode($user->retrieve());
 	// echo "HEllo";
    
 ?>

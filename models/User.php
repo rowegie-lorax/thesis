@@ -8,6 +8,7 @@
         private $table_name = "users";
      
         // object properties
+        public $id;
         public $firstName;
         public $lastName;
         public $email;
@@ -47,7 +48,8 @@
                 $stmt->bindParam(":is_logged_in", $this->is_logged_in);
                 
                 if($stmt->execute()){
-                    return true;
+                    return array("message"=>"Successfully registered", 
+                                 "success"=>"True");
                 }else{
                     return false;
                 }
@@ -58,11 +60,11 @@
             $conn = null;
         }
 
-        //retrieve user
+        //login user
         public function login(){
             try {
 
-                $query = "SELECT password FROM users WHERE email=:email";
+                $query = "SELECT *FROM users WHERE email=:email";
                 // prepare query
                 $stmt = $this->conn->prepare($query);
                 // bind values
@@ -74,8 +76,31 @@
                 $stmt->execute();
                 $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
                 foreach ($stmt->fetchAll() as $data) {
-                    return password_verify($this->password, $data['password']);
+                    $is_correct = password_verify($this->password, $data['password']);
+                    return $is_correct ? $data : array("message"=>"Incorrect Password", "success"=>false);
                 };
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+
+            $conn = null;
+
+        }
+
+        //retrieve specific user
+        public function retrieve(){
+            try {
+
+                $query = "SELECT first_name, last_name, email FROM users WHERE id=:id";
+                $stmt = $this->conn->prepare($query);
+                $this->email=htmlspecialchars(strip_tags($this->id));
+                $stmt->execute(array(':id' => $this->id));
+                $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
+                foreach ($stmt->fetchAll() as $data) {
+                    return $data;
+                };
+
             }catch(PDOException $e){
                 return $e->getMessage();
             }
