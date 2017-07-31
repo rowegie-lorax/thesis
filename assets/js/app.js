@@ -2,12 +2,12 @@
     'use strict';
 
     angular
-        .module('app', ['ui.router'])
-        .config(config)
-        .run(run);
+        .module('app', ['ui.router', 'ui.bootstrap'])
+        .run(run)
+        .config(config);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
-    run.$inject = ['$rootScope', 'LocalStorage' ];
+    run.$inject = ['$location', '$rootScope','$state', '$stateParams'];
 
 
     function config($stateProvider, $urlRouterProvider, $locationProvider){
@@ -32,34 +32,30 @@
     			controller: 'AuthenticationController',
     			controllerAs: 'vm'
     		})
-            // .state('profile',{
-            //     url: '/profile',
-            //     templateUrl: 'views/authentication/register.html',
-            //     controller: 'AuthenticationController',
-            //     controllerAs: 'vm' 
-            // })
+            .state('logout',{
+                url: '/logout',
+                templateUrl: 'views/authentication/register.html',
+                controller: 'AuthenticationController',
+                controllerAs: 'vm' 
+            })
 
     	$urlRouterProvider.otherwise('/home');
+       
     }
 
 
 
-    function run($rootScope, LocalStorage){
-        console.log("runn");
-        $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
-            console.log('asdf');
-            if( LocalStorage.get('is_logged_in') !== null && toState.name === 'login'){
-                event.preventDefault();
-                
-                $state.go('home');
-            }else{
-                console.log("home");
+    function run($location, $rootScope, $state, $stateParams){
+
+        $rootScope.$on('$locationChangeStart', function(){
+            var is_logged_in = localStorage.getItem('is_logged_in');
+
+            if (is_logged_in && $location.path() === '/login' || $location.path() === '/register' )  {
+                $location.path('home');
             }
-            // if( && !UsersService.getCurrentUser()) {
-            // event.preventDefault();
-            // $state.go('login');
-            // }
-        });
+
+        })
+        
 
     }
 
