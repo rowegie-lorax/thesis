@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 28, 2017 at 08:20 AM
+-- Generation Time: Aug 01, 2017 at 06:33 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.0.21
 
@@ -25,6 +25,72 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `exam`
+--
+
+CREATE TABLE `exam` (
+  `id` bigint(11) NOT NULL,
+  `exam_type` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `exam`
+--
+
+INSERT INTO `exam` (`id`, `exam_type`) VALUES
+(1, 'entrance'),
+(2, 'promotional');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `questions`
+--
+
+CREATE TABLE `questions` (
+  `id` bigint(20) NOT NULL,
+  `category_id` int(20) NOT NULL,
+  `question` text NOT NULL,
+  `answer` varchar(100) NOT NULL,
+  `exam_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `question_categories`
+--
+
+CREATE TABLE `question_categories` (
+  `id` int(11) NOT NULL,
+  `category_name` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `question_categories`
+--
+
+INSERT INTO `question_categories` (`id`, `category_name`) VALUES
+(1, 'General Information'),
+(2, 'Verbal Reasoning'),
+(3, 'Quantitative Reasoning'),
+(4, 'Logical Reasoning');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `question_choices`
+--
+
+CREATE TABLE `question_choices` (
+  `id` bigint(20) NOT NULL,
+  `question_id` bigint(11) NOT NULL,
+  `choice_name` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -34,20 +100,46 @@ CREATE TABLE `users` (
   `last_name` varchar(25) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` text NOT NULL,
-  `is_admin` int(11) NOT NULL,
-  `is_logged_in` int(11) NOT NULL
+  `is_admin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `is_admin`, `is_logged_in`) VALUES
-(3, 'Elyn', 'Gastardo', 'elyn.gastardo@gmail.com', '$2y$10$FerDbhQ0rKxbUVj.KY5n2OzBV.MJ0ceoO8Zd4.HlHa/2.ZYJsN7I6', 0, 0);
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `is_admin`) VALUES
+(4, 'Admin', 'Admin', 'admin@gmail.com', '$2y$10$9yBTLRaA.nxBUDB5PR0XAuDZz7TNmpBXQadnH/PaRB1qUMfE07Vp2', 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `exam`
+--
+ALTER TABLE `exam`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `questions`
+--
+ALTER TABLE `questions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_exam_id` (`exam_id`),
+  ADD KEY `fk_category_id` (`category_id`);
+
+--
+-- Indexes for table `question_categories`
+--
+ALTER TABLE `question_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `question_choices`
+--
+ALTER TABLE `question_choices`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `question_id` (`question_id`);
 
 --
 -- Indexes for table `users`
@@ -61,10 +153,47 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `exam`
+--
+ALTER TABLE `exam`
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `questions`
+--
+ALTER TABLE `questions`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT for table `question_categories`
+--
+ALTER TABLE `question_categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `question_choices`
+--
+ALTER TABLE `question_choices`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `questions`
+--
+ALTER TABLE `questions`
+  ADD CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `question_categories` (`id`),
+  ADD CONSTRAINT `fk_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id`);
+
+--
+-- Constraints for table `question_choices`
+--
+ALTER TABLE `question_choices`
+  ADD CONSTRAINT `question_choices_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
