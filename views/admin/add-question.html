@@ -1,10 +1,10 @@
 <div class="modal-header">
 	<h3 class="modal-title" id="modal-title">ADD A QUESTION</h3>
 </div>
-
 <form name="addQuestion" ng-submit="vm.ok()">
 	<div class="modal-body">
   		<div class="form-group">
+  			<label for="repeatSelect"> Question: </label>
 			<input 
 			    type="text" 
 			    class="form-control" 
@@ -12,32 +12,40 @@
 			    ng-model="vm.question.content" required>
 		</div>
 		<div class="form-group">
-			<input 
-			type="text" 
-			class="form-control" 
-			placeholder="Last Name" 
-			ng-model="vm.question.category" required>
+			<label for="repeatSelect"> Question Category: </label>
+		    <select name="repeatSelect" class="form-control" ng-model="vm.question.category">
+		    	<option ng-repeat="option in vm.categories" value="{{option.id}}">{{option.category_name | uppercase }}</option>
+		    </select>
 		</div>
 		<div class="form-group">
-			<input 
-			type="email" 
-			class="form-control" 
-			placeholder="Email Address" 
-			ng-model="vm.user.email" required>
+			<label for="repeatSelect"> Choices: </label>
+			
+			<selectize 
+				placeholder='Add only 4 choices...' 
+				name='choices' 
+				options='vm.answerOptions' 
+				config="vm.choicesConfig" 
+				ng-model="vm.question.choices" 
+				ng-disabled='disable' 
+				required='true'></selectize>
+
 		</div>
 		<div class="form-group">
-			<input 
-			type="password" 
-			class="form-control" 
-			placeholder="Create Password" 
-			ng-model="vm.user.password" required>
+			<label for="repeatSelect"> Answer: </label>
+      		<selectize 
+      			ng-required="true" 
+      			placeholder='Select one answer...' 
+      			options='vm.answerOptions' 
+      			config="{maxItems: 1}" 
+      			ng-model="vm.question.answer"  
+      			name='myName2' 
+      			required='true'></selectize>
 		</div>
 		<div class="form-group">
-			<input 
-			type="password" 
-			class="form-control" 
-			placeholder="Confirm Password" 
-			ng-model="vm.user.confirmPassword" required>
+			<label for="repeatSelect"> Exam Type: </label>
+		    <select name="repeatSelect" class="form-control" ng-model="vm.question.exam_type">
+		    	<option ng-repeat="option in vm.exam_types" value="{{option.id}}">{{option.exam_type | uppercase }}</option>
+		    </select>
 		</div>
   	</div>
   <div class="modal-footer">

@@ -6,6 +6,7 @@
   "dependencies": {
     "@uirouter/angularjs": "^1.0.5",
     "angular": "^1.6.5",
+    "angular-selectizejs": "^0.1.7",
     "angular-ui-bootstrap": "^2.5.0"
   },
   "scripts": {

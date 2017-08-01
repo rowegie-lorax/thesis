@@ -1,7 +1,7 @@
 <?php
 
 
-    class Question{
+    class Choices{
      
         // database connection and table name
         private $conn;
@@ -42,20 +42,15 @@
                 
                 if($stmt->execute()){
                     $question_id = $this->conn->lastInsertId();
-                    foreach ($this->choices as $choice) {
+                    foreach ($choices as $choice) {
                         $query = "INSERT INTO question_choices (question_id, choice_name)
                           VALUES (:question_id, :choice)";
-
                         $stmt = $this->conn->prepare($query);
-                        $stmt->execute(
-                            array(
-                                ':question_id' =>$question_id,
-                                ':choice' => $choice
-                            )
-
-                        );
+                        $question_id=htmlspecialchars(strip_tags($question_id));
+                        $choice=htmlspecialchars(strip_tags($choice));
+                        $stmt->bindParam(":question_id", $question_id);
+                        $stmt->bindParam(":choice", $choice);
                     }
-                    return array("message"=>"Successful Insertion", "success" =>true);
 
                 }else{
                     return false;
