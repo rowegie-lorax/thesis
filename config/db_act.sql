@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 01, 2017 at 06:33 PM
+-- Generation Time: Aug 01, 2017 at 06:39 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.0.21
 
@@ -55,6 +55,13 @@ CREATE TABLE `questions` (
   `exam_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `questions`
+--
+
+INSERT INTO `questions` (`id`, `category_id`, `question`, `answer`, `exam_id`) VALUES
+(17, 1, 'The basic weapon of a police officer is?', 'Knowledge of the Law', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -84,9 +91,19 @@ INSERT INTO `question_categories` (`id`, `category_name`) VALUES
 
 CREATE TABLE `question_choices` (
   `id` bigint(20) NOT NULL,
-  `question_id` bigint(11) NOT NULL,
+  `question_id` bigint(20) NOT NULL,
   `choice_name` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `question_choices`
+--
+
+INSERT INTO `question_choices` (`id`, `question_id`, `choice_name`) VALUES
+(4, 17, 'Gun'),
+(5, 17, 'Uniform'),
+(6, 17, 'Whistle'),
+(7, 17, 'Knowledge of the Law');
 
 -- --------------------------------------------------------
 
@@ -139,7 +156,7 @@ ALTER TABLE `question_categories`
 --
 ALTER TABLE `question_choices`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `question_id` (`question_id`);
+  ADD KEY `fk_question_id` (`question_id`);
 
 --
 -- Indexes for table `users`
@@ -161,7 +178,7 @@ ALTER TABLE `exam`
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `question_categories`
 --
@@ -171,7 +188,7 @@ ALTER TABLE `question_categories`
 -- AUTO_INCREMENT for table `question_choices`
 --
 ALTER TABLE `question_choices`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -192,7 +209,7 @@ ALTER TABLE `questions`
 -- Constraints for table `question_choices`
 --
 ALTER TABLE `question_choices`
-  ADD CONSTRAINT `question_choices_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_question_id` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
