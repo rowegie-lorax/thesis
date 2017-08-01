@@ -11,7 +11,6 @@
 	function MainController($http,LocalStorage){
 		var vm = this;
 		vm.is_logged_in = LocalStorage.get('is_logged_in');
-		console.log(vm.is_logged_in);
 		vm.message="true";
 		getUserLoggedIn();
 		

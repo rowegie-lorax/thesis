@@ -1,0 +1,52 @@
+<div class="modal-header">
+	<h3 class="modal-title" id="modal-title">ADD A QUESTION</h3>
+</div>
+
+<form name="addQuestion" ng-submit="vm.ok()">
+	<div class="modal-body">
+  		<div class="form-group">
+			<input 
+			    type="text" 
+			    class="form-control" 
+			    placeholder="Question" 
+			    ng-model="vm.question.content" required>
+		</div>
+		<div class="form-group">
+			<input 
+			type="text" 
+			class="form-control" 
+			placeholder="Last Name" 
+			ng-model="vm.question.category" required>
+		</div>
+		<div class="form-group">
+			<input 
+			type="email" 
+			class="form-control" 
+			placeholder="Email Address" 
+			ng-model="vm.user.email" required>
+		</div>
+		<div class="form-group">
+			<input 
+			type="password" 
+			class="form-control" 
+			placeholder="Create Password" 
+			ng-model="vm.user.password" required>
+		</div>
+		<div class="form-group">
+			<input 
+			type="password" 
+			class="form-control" 
+			placeholder="Confirm Password" 
+			ng-model="vm.user.confirmPassword" required>
+		</div>
+  	</div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="submit">Add</button>
+	<button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+  </div>
+</form>
+
+<!-- <div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="">OK</button>
+	<button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+</div> -->

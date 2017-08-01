@@ -32,18 +32,14 @@
     			controller: 'AuthenticationController',
     			controllerAs: 'vm'
     		})
-            .state('profile', {
-                url: '/profile',
-                templateUrl: 'views/user/profile.html',
-                controller: 'AuthenticationController',
+            .state('questions', {
+                url: '/questions',
+                templateUrl: 'views/admin/questions.html',
+                controller: 'QuestionController',
                 controllerAs: 'vm'
-            })
-            .state('logout',{
-                url: '/logout',
-                templateUrl: 'views/authentication/register.html',
-                controller: 'AuthenticationController',
-                controllerAs: 'vm' 
-            })
+            });
+
+            
 
     	$urlRouterProvider.otherwise('/home');
        

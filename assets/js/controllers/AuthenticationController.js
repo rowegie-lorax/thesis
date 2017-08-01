@@ -3,13 +3,13 @@
 
 	angular
 		.module('app')
-		.controller('AuthenticationController', AuthenticationController);
+		.controller('AuthenticationController', AuthenticationController)
+		.controller('ModalInstanceCtrl', ModalInstanceCtrl);
 
-	AuthenticationController.$inject = ['$http', '$state', 'LocalStorage'];
+	AuthenticationController.$inject = ['$location', '$http', '$state', 'LocalStorage', '$uibModal'];
 
-	function AuthenticationController($http, $state, $modal, LocalStorage){
+	function AuthenticationController($location, $http, $state, LocalStorage, $uibModal){
 		var vm = this;
-
 		vm.message = "";
 		vm.success = true;
 
@@ -27,7 +27,11 @@
 				method: 'POST',
 				data: vm.user
 			}).then(function(response){
-				if (!response.data.hasOwnProperty('success')){
+
+				if ( response.data === null){
+					vm.message = "User does not exists";
+					vm.success = false;
+				}else if (!response.data.hasOwnProperty('success')){
 					LocalStorage.set('is_logged_in', true);
 					LocalStorage.set('user_id', response.data.id);
 					window.location.reload();
@@ -36,8 +40,6 @@
 					vm.success = response.data.success;
 
 				}
-				// console.log();
-	
 			})
 
 		}
@@ -61,30 +63,42 @@
 
 		}
 
-		vm.logout = function(){
-			$modal.open({
-            templateUrl: 'logout.html', // loads the template
-            backdrop: true, // setting backdrop allows us to close the modal window on clicking outside the modal window
-            windowClass: 'modal', // windowClass - additional CSS class(es) to be added to a modal window template
-            controller: function ($scope, $modalInstance, $log, user) {
-                $scope.user = user;
-                $scope.submit = function () {
-                    $log.log('Submiting user info.'); // kinda console logs this statement
-                    $log.log(user); 
-                    $modalInstance.dismiss('cancel'); // dismiss(reason) - a method that can be used to dismiss a modal, passing a reason
-                }
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel'); 
-                };
-            },
-            resolve: {
-                user: function () {
-                    return $scope.user;
-                }
-            }
-        });//end of modal.open
+		vm.logout =  function(){
+	    	
+	    	var modalInstance = $uibModal.open({
+	      		animation: true,
+	      		ariaLabelledBy: 'modal-title',
+	      		ariaDescribedBy: 'modal-body',
+	      		templateUrl: 'views/authentication/logout.html',
+	      		controller: 'ModalInstanceCtrl',
+	      		controllerAs: 'vm',
+	      		size: 'sm'
+	    	});
+
+		    modalInstance.result.then(function (choice) {
+		    	if (choice){
+		    		LocalStorage.remove('is_logged_in');
+		    		LocalStorage.remove('user_id');
+		    		window.location.reload();
+		    	}
+		    }, function () {
+
+		    });
+
 		}
 
+	}
+
+	function ModalInstanceCtrl($uibModalInstance){
+		var vm = this;
+		
+		vm.ok = function () {
+			$uibModalInstance.close(true);
+		};
+
+		vm.cancel = function () {
+			$uibModalInstance.dismiss('cancel');
+		};
 	}
 
 })();

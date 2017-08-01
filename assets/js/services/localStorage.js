@@ -19,7 +19,7 @@
 		}
 
 		service.remove = function(key){
-			var getKey = get(key);
+			var getKey = this.get(key);
 			if ( getKey != null){
 				localStorage.removeItem(key);
 			}else{

@@ -14,10 +14,11 @@
 
 			<main-nav 
 				login="{{vm.is_logged_in}}" 
-				user="vm.loggedInUser"></main-nav>
+				user="vm.loggedInUser">
+				
+			</main-nav>
 		</header>
 		<div class="container">
-			{{ vm.is_logged_in }}
 			<ui-view></ui-view>
 
 	    </div>
@@ -37,6 +38,7 @@
 
 		<script type="text/javascript" src="assets/js/controllers/AuthenticationController.js"></script>
 		<script type="text/javascript" src="assets/js/controllers/MainController.js"></script>
+		<script type="text/javascript" src="assets/js/controllers/admin/QuestionController.js"></script>
 
 		<script type="text/javascript" src="assets/js/components/main.nav.js"></script>
 

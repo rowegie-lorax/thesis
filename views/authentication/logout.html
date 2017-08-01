@@ -1,21 +1,17 @@
-<script type="text/ng-template" id="logout.html">
-  <div class="modal-header">
-    <h3>I'm a modal!</h3>
-  </div>
-  <form ng-submit="submit()">
-    <div class="modal-body">
-      <label>User name</label>
-      <input type="text" ng-model="user.user" />
-      <label>Password</label>
-      <input type="password" ng-model="user.password" />
-      <label>Add some notes</label>
-      <textarea rows="4" cols="50" ng-model="user.notes">
 
-      </textarea>
-      </div>
-      <div class="modal-footer">
-      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-      <input type="submit" class="btn primary-btn" value="Submit" />
-    </div>
-  </form>
-</script>
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">I'm a modal!</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <p>Hello</p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+</div>
+
+
+<!-- <div class="modal-header">
+  <h3>I'm a modal!</h3>
+</div> -->
+
