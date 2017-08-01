@@ -12,7 +12,9 @@
 	<body ng-controller="MainController as vm">
 		<header class="container">
 
-			<main-nav login="{{vm.is_logged_in}}" user="vm.loggedInUser"></main-nav>
+			<main-nav 
+				login="{{vm.is_logged_in}}" 
+				user="vm.loggedInUser"></main-nav>
 		</header>
 		<div class="container">
 			{{ vm.is_logged_in }}

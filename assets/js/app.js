@@ -7,7 +7,7 @@
         .config(config);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
-    run.$inject = ['$location', '$rootScope','$state', '$stateParams'];
+    run.$inject = ['$location', '$rootScope','LocalStorage'];
 
 
     function config($stateProvider, $urlRouterProvider, $locationProvider){
@@ -32,6 +32,12 @@
     			controller: 'AuthenticationController',
     			controllerAs: 'vm'
     		})
+            .state('profile', {
+                url: '/profile',
+                templateUrl: 'views/user/profile.html',
+                controller: 'AuthenticationController',
+                controllerAs: 'vm'
+            })
             .state('logout',{
                 url: '/logout',
                 templateUrl: 'views/authentication/register.html',
@@ -45,12 +51,12 @@
 
 
 
-    function run($location, $rootScope, $state, $stateParams){
+    function run($location, $rootScope, LocalStorage){
 
         $rootScope.$on('$locationChangeStart', function(){
-            var is_logged_in = localStorage.getItem('is_logged_in');
+            var is_logged_in = LocalStorage.get('is_logged_in');
 
-            if (is_logged_in && $location.path() === '/login' || $location.path() === '/register' )  {
+            if (is_logged_in && ($location.path() === '/login' || $location.path() === '/register') )  {
                 $location.path('home');
             }
 

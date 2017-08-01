@@ -11,7 +11,7 @@
 
 		service.get = function(key){
 			retVal = localStorage.getItem(key);
-			return retVal !== null ? retVal : retVal ;
+			return retVal !== null ? retVal : false ;
 		}
 
 		service.set = function(key, value){

@@ -18,6 +18,8 @@
 			    	placeholder="Password" 
 			    	ng-model="vm.user.password" required>
 			  </div>
+			  <em ng-show="!vm.success"> {{ vm.message }}</em>
+			  <!-- <em> {{ vm.success }}</em> -->
 			  <div class="checkbox">
 			    <label><input type="checkbox"> Remember me</label>
 			  </div>

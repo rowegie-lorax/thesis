@@ -39,6 +39,7 @@
 			    	placeholder="Confirm Password" 
 			    	ng-model="vm.user.confirmPassword" required>
 			  </div>
+			  <em ng-if="!vm.success">{{ vm.message }}</em>
 			  <button type="submit" class="btn btn-primary">Register</button>
 			</form>
 			<div class="login-help">

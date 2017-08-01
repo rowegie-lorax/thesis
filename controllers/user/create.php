@@ -23,7 +23,7 @@
 	$user->email = $data->email;
 	$user->password = password_hash($data->password, PASSWORD_DEFAULT);
 	$user->is_admin = 0;
-	$user->is_logged_in = 0;
+
 
 	
 

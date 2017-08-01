@@ -5,12 +5,13 @@
 		.module('app')
 		.controller('AuthenticationController', AuthenticationController);
 
-	AuthenticationController.$inject = ['$http', 'LocalStorage'];
+	AuthenticationController.$inject = ['$http', '$state', 'LocalStorage'];
 
-	function AuthenticationController($http, LocalStorage){
+	function AuthenticationController($http, $state, $modal, LocalStorage){
 		var vm = this;
 
-		vm.message = "Asdf";
+		vm.message = "";
+		vm.success = true;
 
 		vm.user = {
 			email: '',
@@ -26,9 +27,16 @@
 				method: 'POST',
 				data: vm.user
 			}).then(function(response){
-				LocalStorage.set('is_logged_in', true);
-				LocalStorage.set('user_id', response.data.id);
-				
+				if (!response.data.hasOwnProperty('success')){
+					LocalStorage.set('is_logged_in', true);
+					LocalStorage.set('user_id', response.data.id);
+					window.location.reload();
+				}else{
+					vm.message = response.data.message;
+					vm.success = response.data.success;
+
+				}
+				// console.log();
 	
 			})
 
@@ -40,10 +48,41 @@
 				method: 'POST',
 				data: vm.user
 			}).then(function(response){
-				console.log(response.data);
+				if (response.data.success){
+					alert("Successful registration!");
+					$state.go('login');
+
+				}else{
+					vm.message = response.data.message;
+					vm.success = response.data.success;
+				}
 			})
 
 
+		}
+
+		vm.logout = function(){
+			$modal.open({
+            templateUrl: 'logout.html', // loads the template
+            backdrop: true, // setting backdrop allows us to close the modal window on clicking outside the modal window
+            windowClass: 'modal', // windowClass - additional CSS class(es) to be added to a modal window template
+            controller: function ($scope, $modalInstance, $log, user) {
+                $scope.user = user;
+                $scope.submit = function () {
+                    $log.log('Submiting user info.'); // kinda console logs this statement
+                    $log.log(user); 
+                    $modalInstance.dismiss('cancel'); // dismiss(reason) - a method that can be used to dismiss a modal, passing a reason
+                }
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel'); 
+                };
+            },
+            resolve: {
+                user: function () {
+                    return $scope.user;
+                }
+            }
+        });//end of modal.open
 		}
 
 	}
