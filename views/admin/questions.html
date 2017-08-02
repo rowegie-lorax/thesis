@@ -1,7 +1,9 @@
 <div class="table-responsive"> 
   <div class="form-group">
-    <button class="btn btn-danger pull-right"> Remove </button>
-    <button class="btn btn-primary addnew pull-right" ng-click="vm.addQuestion()"> Add New</button>
+    <!-- <button class="btn btn-danger pull-right"> Remove </button> -->
+    <button class="btn btn-primary addnew pull-right" ng-click="vm.addQuestion()"> 
+      <i class="glyphicon glyphicon-plus"></i> Add New
+    </button>
 
   </div>
   <span></span>        
@@ -11,20 +13,28 @@
         <th>#</th>
         <th>Question</th>
         <th>Answer</th>
-        <th></th>
-        <th>City</th>
-        <th>Country</th>
+        <th>Category Name</th>
+        <th>Exam Type</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>Anna</td>
-        <td>Pitt</td>
-        <td>35</td>
-        <td>New York</td>
-        <td>USA</td>
+      <tr ng-repeat="question in vm.questions">
+        <td>{{question.id}}</td>
+        <td>{{question.question}}</td>
+        <td>{{question.answer}}</td>
+        <td>{{question.category_name}}</td>
+        <td>{{question.exam_type | uppercase}}</td>
+        <td>
+          <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></button>  
+          <button type="button" class="btn btn-danger "><i class="glyphicon glyphicon-trash"></i></button> 
+        </td>
       </tr>
+      <!-- {{  }}
+      <p ng-re></p>
+      <tr ng-repeat="question in vm.questions">
+      {{ question }}
+      </tr> -->
     </tbody>
   </table>
   </div>

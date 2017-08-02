@@ -68,47 +68,21 @@
             $conn = null;
         }
 
-        //login user
-        public function login(){
-            try {
-
-                $query = "SELECT *FROM questions WHERE email=:email";
-                // prepare query
-                $stmt = $this->conn->prepare($query);
-                // bind values
-                // echo $this->password;
-                $this->email=htmlspecialchars(strip_tags($this->email));
-                // $this->password=htmlspecialchars(strip_tags($this->password));
-                $stmt->bindParam(":email", $this->email);
-                // $stmt->bindParam(":password", $this->password); 
-                $stmt->execute();
-                $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
-                foreach ($stmt->fetchAll() as $data) {
-                    $is_correct = password_verify($this->password, $data['password']);
-                    return $is_correct ? $data : array("message"=>"Incorrect Password", "success"=>false);
-                };
-
-            }catch(PDOException $e){
-                return $e->getMessage();
-            }
-
-            $conn = null;
-
-        }
-
-        //retrieve specific user
+        //retrieve all questions
         public function retrieve(){
             try {
 
-                $query = "SELECT first_name, last_name, email, is_admin FROM questions WHERE id=:id";
+                $query = "SELECT 
+                            questions.id, questions.question, questions.answer, question_categories.category_name, exam.exam_type
+                          FROM questions  
+                          INNER JOIN question_categories on questions.category_id = question_categories.id 
+                          INNER JOIN exam on questions.exam_id = exam.id";
                 $stmt = $this->conn->prepare($query);
-                $this->email=htmlspecialchars(strip_tags($this->id));
-                $stmt->execute(array(':id' => $this->id));
-                $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
-                foreach ($stmt->fetchAll() as $data) {
-                    return $data;
-                };
 
+                if ($stmt->execute()){
+                    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                }
+              
             }catch(PDOException $e){
                 return $e->getMessage();
             }

@@ -15,11 +15,9 @@
 
 	$database = new Database();
 	$db = $database->getConnection();
-	$user = new User($db);
+	$question = new Question($db);
 
-	$user->id = $_GET['user_id'];
-
-	echo json_encode($user->retrieve());
+	echo json_encode($question->retrieve());
 	// echo "HEllo";
    
 ?>

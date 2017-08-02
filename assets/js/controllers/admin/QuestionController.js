@@ -4,7 +4,7 @@
 	angular
 		.module('app')
 		.controller('QuestionController', QuestionController)
-		.controller('ModalInstanceCtrl', ModalInstanceCtrl);
+		.controller('ModalQuestionCtrl', ModalQuestionCtrl);
 
 	QuestionController.$inject = ['$http', '$uibModal'];
 
@@ -13,6 +13,18 @@
 
 		getQuestionCategories();
 		getExamTypes();
+		retrieveQuestions();
+
+		function retrieveQuestions(){
+			$http({
+				url: 'http://localhost/thesis/controllers/questions/retrieve.php',
+				method: 'GET'
+			}).then(function(response){
+				vm.questions = response.data;
+				console.log(vm.questions);
+			})
+
+		}
 
 		function getQuestionCategories(){
 			$http({
@@ -34,12 +46,6 @@
 
 		}
 
-		vm.question = {
-			questionName: '' ,
-			category: '',
-
-		}
-
 		vm.addQuestion = function(){
 			var modalInstance = $uibModal.open({
 	      		animation: true,
@@ -49,6 +55,7 @@
 	      		controller: 'ModalInstanceCtrl',
 	      		controllerAs: 'vm',
 	      		size: 'md',
+	      		// backdrop: false,
 	      		resolve: {
 	        		categories: function(){
 	          			return vm.categories;
@@ -60,7 +67,6 @@
 	    	});
 
 		    modalInstance.result.then(function (question) {
-		    	console.log(question);
 		    	$http({
 					url: 'http://localhost/thesis/controllers/questions/create.php',
 					method: 'POST',
@@ -78,7 +84,7 @@
 
 	}
 
-	function ModalInstanceCtrl($uibModalInstance, categories, exam_types){
+	function ModalQuestionCtrl($uibModalInstance, categories, exam_types){
 		var vm = this;
 
 		vm.categories = categories;

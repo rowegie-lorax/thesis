@@ -44,8 +44,13 @@
                     </button>
 
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
-                        <li role="menuitem"><a href="">Profile</a></li>
-                        <li role="menuitem" ng-if="user.is_admin==1"><a ui-sref="questions">Questionnaires</a></li>
+                        <li role="menuitem"><a href="" ui-sref="profile">Profile</a></li>
+                        <li role="menuitem" ng-if="user.is_admin==1">
+                            <a href="" ui-sref="questions">Questionnaires</a>
+                        </li>
+                        <li role="menuitem" ng-if="user.is_admin==0">
+                            <a href="" ui-sref="exam">Take Exam</a>
+                        </li>
                         <li role="menuitem"><a href="#">Something else here</a></li>
                         <li class="divider"></li>
                         <li role="menuitem" ng-controller="AuthenticationController as vm">

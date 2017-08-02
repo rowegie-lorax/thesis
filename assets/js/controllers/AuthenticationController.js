@@ -33,6 +33,7 @@
 					vm.success = false;
 				}else if (!response.data.hasOwnProperty('success')){
 					LocalStorage.set('is_logged_in', true);
+					LocalStorage.set('is_admin', response.data.is_admin);
 					LocalStorage.set('user_id', response.data.id);
 					window.location.reload();
 				}else{
@@ -64,7 +65,6 @@
 		}
 
 		vm.logout =  function(){
-	    	
 	    	var modalInstance = $uibModal.open({
 	      		animation: true,
 	      		ariaLabelledBy: 'modal-title',
