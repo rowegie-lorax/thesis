@@ -13,6 +13,7 @@
         public $email;
         public $password;
         public $is_admin;
+        public $userObject;
      
         public function __construct($db){
             $this->conn = $db;
@@ -112,7 +113,7 @@
         public function retrieve(){
             try {
 
-                $query = "SELECT first_name, last_name, email, is_admin FROM users WHERE id=:id";
+                $query = "SELECT first_name, last_name, email, birthdate, is_admin FROM users WHERE id=:id";
                 $stmt = $this->conn->prepare($query);
                 $this->email=htmlspecialchars(strip_tags($this->id));
                 $stmt->execute(array(':id' => $this->id));
@@ -120,6 +121,44 @@
                 foreach ($stmt->fetchAll() as $data) {
                     return $data;
                 };
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+
+            $conn = null;
+
+        }
+
+         //udpate specific user
+        public function update(){
+            try {
+
+                $data = ( (array) $this->userObject );
+
+                $query = "UPDATE users SET";
+                $values = array();
+
+
+                $data = array_filter($data, function ($value) {
+                    return null !== $value;
+                });
+
+                foreach ($data as $name => $value) {
+                    if ($name !== 'id'){
+                        $query .= ' '.$name.' = :'.$name.','; 
+                    }
+                    $values[':'.$name] = $value;
+                    
+                }
+                $query = substr($query, 0, -1).' WHERE id = :id;'; 
+
+                $stmt = $this->conn->prepare($query);
+                $stmt->execute($values);
+                if ( $stmt->rowCount() > 0 ){
+                    return array('message' => "Updated Successfully", 'success' => true  );
+                }
+                
 
             }catch(PDOException $e){
                 return $e->getMessage();

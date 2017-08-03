@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 01, 2017 at 06:39 PM
+-- Generation Time: Aug 03, 2017 at 03:42 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.0.21
 
@@ -60,7 +60,8 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`id`, `category_id`, `question`, `answer`, `exam_id`) VALUES
-(17, 1, 'The basic weapon of a police officer is?', 'Knowledge of the Law', 1);
+(17, 1, 'The basic weapon of a police officer is?', 'Knowledge of the Law', 1),
+(18, 1, 'Which of the following does not belong to the group?', 'Prostitution', 1);
 
 -- --------------------------------------------------------
 
@@ -103,7 +104,11 @@ INSERT INTO `question_choices` (`id`, `question_id`, `choice_name`) VALUES
 (4, 17, 'Gun'),
 (5, 17, 'Uniform'),
 (6, 17, 'Whistle'),
-(7, 17, 'Knowledge of the Law');
+(7, 17, 'Knowledge of the Law'),
+(8, 18, 'Assassination'),
+(9, 18, 'Bombing'),
+(10, 18, 'Sabotage'),
+(11, 18, 'Prostitution');
 
 -- --------------------------------------------------------
 
@@ -115,7 +120,8 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `first_name` varchar(25) NOT NULL,
   `last_name` varchar(25) NOT NULL,
-  `email` varchar(50) NOT NULL,
+  `email` varchar(25) NOT NULL,
+  `birthdate` datetime NOT NULL,
   `password` text NOT NULL,
   `is_admin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -124,8 +130,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `is_admin`) VALUES
-(4, 'Admin', 'Admin', 'admin@gmail.com', '$2y$10$9yBTLRaA.nxBUDB5PR0XAuDZz7TNmpBXQadnH/PaRB1qUMfE07Vp2', 1);
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `birthdate`, `password`, `is_admin`) VALUES
+(4, 'Admin', 'Admin', 'admin@gmail.com', '2017-08-03 13:13:46', '$2y$10$9yBTLRaA.nxBUDB5PR0XAuDZz7TNmpBXQadnH/PaRB1qUMfE07Vp2', 0),
+(5, 'Rowegie', 'Lambojon', 'rlambojon@gmail.com', '1997-09-19 05:37:21', '$2y$10$Ry.6/DRR1.vrn5qK15QD9eXI9OC0JlwK2ixJ3N4OKeuUc6AJtYCZu', 0);
 
 --
 -- Indexes for dumped tables
@@ -162,8 +169,7 @@ ALTER TABLE `question_choices`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -178,7 +184,7 @@ ALTER TABLE `exam`
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `question_categories`
 --
@@ -188,12 +194,12 @@ ALTER TABLE `question_categories`
 -- AUTO_INCREMENT for table `question_choices`
 --
 ALTER TABLE `question_choices`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --

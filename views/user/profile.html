@@ -33,14 +33,69 @@
 
   -->
  <uib-tabset active="active">
-    <uib-tab index="0" heading="Static title">Static content</uib-tab>
-    <uib-tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}" disable="tab.disabled">
-      {{tab.content}}
+    <uib-tab index="0" heading="User information"> 
+    {{ vm.loggedInUser}}
+    <div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title">Sheena Shrestha</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class=" col-md-9 col-lg-9 "> 
+					<table class="table table-user-information">
+						<tbody>
+							<tr>
+								<td>Firstname:</td>
+								<td>{{ vm.loggedInUser.first_name}}</td>
+							</tr>
+							<tr>
+								<td>Lastname:</td>
+								<td>{{ vm.loggedInUser.last_name}}</td>
+							</tr>
+							<tr>
+								<td>Date of Birth</td>
+								<td style="display:inline-block; min-height:290px;">
+									<div uib-datepicker ng-model="vm.loggedInUser.birthdate" class="well well-sm" datepicker-options="options"></div>
+								</td>
+							</tr>
+							<tr>
+								<td>Gender</td>
+								<td>{{vm.loggedInUser.birthdate}}</td>
+							</tr>
+							<tr>
+								<td>Home Address</td>
+								<td>Kathmandu,Nepal</td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td>
+									<a href="mailto:{{ vm.loggedInUser.email}}">{{ vm.loggedInUser.email}}</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Phone Number</td>
+									<td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
+								</td>
+
+							</tr>
+
+						</tbody>
+					</table>
+
+					<button class="btn btn-primary" type="submit" ng-click="vm.update()">Update</button>
+				</div>
+			</div>
+		</div>
+		<div class="panel-footer">
+		</div>
+
+		</div>
     </uib-tab>
+
     <uib-tab index="3" select="alertMe()">
       <uib-tab-heading>
         <i class="glyphicon glyphicon-bell"></i> Alert!
       </uib-tab-heading>
       I've got an HTML heading, and a select callback. Pretty cool!
     </uib-tab>
-</uib-tabset>
+</uib-tabset>	
