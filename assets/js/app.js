@@ -70,9 +70,6 @@
                     $location.path('/home')
                 }
 
-            }else{
-                $location.path('/login');
-
             }
 
             // if ( is_logged_in && urls.indexOf($location.path() > 0 ) ){

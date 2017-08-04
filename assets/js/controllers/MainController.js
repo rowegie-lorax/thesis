@@ -30,12 +30,15 @@
     			params: {user_id: id}
  			}).then(function(response){
  				vm.loggedInUser = response.data;
- 				if (vm.loggedInUser.birthdate === "0000-00-00 00:00:00"){
- 					console.log(vm.loggedInUser);
- 					today();
- 				}else{
- 					vm.loggedInUser.birthdate = new Date(vm.loggedInUser.birthdate)
- 					console.log(vm.loggedInUser.birthdate);
+ 				if (vm.loggedInUser !== null){
+ 					// vm.loggedInUser.birthdate === "0000-00-00 00:00:00" ? today() : 
+ 					if (vm.loggedInUser.birthdate === "0000-00-00 00:00:00"){
+	 					today();
+	 				}else{
+	 					vm.loggedInUser.birthdate = new Date(vm.loggedInUser.birthdate)
+	 				}
+ 				
+
  				}
  				
  				

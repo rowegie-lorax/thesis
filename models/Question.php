@@ -77,11 +77,28 @@
                           FROM questions  
                           INNER JOIN question_categories on questions.category_id = question_categories.id 
                           INNER JOIN exam on questions.exam_id = exam.id";
+                $results = array();
+                $data =  array();
                 $stmt = $this->conn->prepare($query);
 
                 if ($stmt->execute()){
+                    // foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $value) {
+                    //     // echo $value['question'];
+                    //     $data = array(
+                    //         'category_name' => $value['category_name'],
+                    //         'question' => $value['question']
+                    //     );
+                    //     array_push($results, $data);
+                    // }
+                    // return(($stmt->fetchAll(PDO::FETCH_OBJ)));
                     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    // // return $rsults;
+                    // // foreach( $results as $row ) {
+                    // //     echo $row['question'];
+                    // //     echo $row['answer'];
+                    // }
                 }
+                return $results;
               
             }catch(PDOException $e){
                 return $e->getMessage();

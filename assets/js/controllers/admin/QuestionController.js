@@ -52,7 +52,7 @@
 	      		ariaLabelledBy: 'modal-title',
 	      		ariaDescribedBy: 'modal-body',
 	      		templateUrl: 'views/admin/add-question.html',
-	      		controller: 'ModalInstanceCtrl',
+	      		controller: 'ModalQuestionCtrl',
 	      		controllerAs: 'vm',
 	      		size: 'md',
 	      		// backdrop: false,

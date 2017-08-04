@@ -1,43 +1,8 @@
-<!-- <div class="well">
-    <ul class="nav nav-tabs">
-      <li class="active"><a href="#home" data-toggle="tab">Profile</a></li>
-      <li><a href="#profile" data-toggle="tab">Password</a></li>
-    </ul>
-    <div id="myTabContent" class="tab-content">
-      <div class="tab-pane active in" id="home">
-        <form id="tab">
-            <label>Username</label>
-            <input type="text" value="jsmith" class="form-control">
-            <label>First Name</label>
-            <input type="text" value="John" class="form-control">
-            <label>Last Name</label>
-            <input type="text" value="Smith" class="form-control">
-            <label>Email</label>
-            <input type="text" value="jsmith@yourcompany.com" class="form-control">
-            
-          	<div>
-        	    <button class="btn btn-primary">Update</button>
-        	</div>
-        </form>
-      </div>
-      <div class="tab-pane fade" id="profile">
-    	<form id="tab2">
-        	<label>New Password</label>
-        	<input type="password" class="form-control">
-        	<div>
-        	    <button class="btn btn-primary">Update</button>
-        	</div>
-    	</form>
-      </div>
-  </div>
-
-  -->
  <uib-tabset active="active">
     <uib-tab index="0" heading="User information"> 
-    {{ vm.loggedInUser}}
     <div class="panel panel-info">
 		<div class="panel-heading">
-			<h3 class="panel-title">Sheena Shrestha</h3>
+			<h3 class="panel-title"></h3>
 		</div>
 		<div class="panel-body">
 			<div class="row">
@@ -94,7 +59,7 @@
 
     <uib-tab index="3" select="alertMe()">
       <uib-tab-heading>
-        <i class="glyphicon glyphicon-bell"></i> Alert!
+        <i class="glyphicon glyphicon-bell"></i> Exam Results
       </uib-tab-heading>
       I've got an HTML heading, and a select callback. Pretty cool!
     </uib-tab>
