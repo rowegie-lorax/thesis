@@ -1,3 +1,4 @@
+
 (function(){
 	'use strict';
 
@@ -20,6 +21,7 @@
 				url: 'http://localhost/thesis/controllers/questions/retrieve.php',
 				method: 'GET'
 			}).then(function(response){
+				console.log(response);
 				vm.questions = response.data;
 				console.log(vm.questions);
 			})

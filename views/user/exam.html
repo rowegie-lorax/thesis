@@ -1,5 +1,29 @@
 <div class="row">
-	<pre>You are currently on page {{ vm.currentPage }}</pre>
-  	<ul uib-pager total-items="vm.totalItems" ng-model="vm.currentPage"></ul>
+	<div ng-repeat="question in vm.questions.slice(((vm.currentPage-1)*vm.itemsPerPage), ((vm.currentPage)*vm.itemsPerPage)) track by $index">
+		<pre >
+			{{question.question}}			
+		</pre>
+		<div ng-repeat="choice in vm.choices | filter: {question_id: question.id}">
+			<label>
+				<input 
+					type="radio" 
+					name="choiceAnswer"
+					ng-click="vm.checkAnswer(choice, question.answer)"> {{ choice.choice_name }}
+				
+			</label>
+		</div>	
+	</div>
+	
+  	<ul uib-pager total-items="vm.totalItems" ng-model="vm.currentPage" items-per-page="vm.itemsPerPage"></ul>
+
+  	<uib-progressbar 
+  		class="progress-striped active"
+  		max="vm.totalItems"
+  		value="vm.currentPage" 
+  		type="success">
+
+  	<b>{{ vm.currentPage}} / {{vm.totalItems }} </b>
+  	</uib-progressbar>
+  	<button ng-show="vm.currentPage==vm.totalItems" type="button" class="btn btn-success">Submit Answers</button>
 	
 </div>

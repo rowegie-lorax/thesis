@@ -70,22 +70,9 @@
                     $location.path('/home')
                 }
 
-            }
-
-            // if ( is_logged_in && urls.indexOf($location.path() > 0 ) ){
-            //     $location.path('/home');
-            // }else{
-            //     $location.path('/login');
-            // }
-            // urls.forEach(function(url){
-            //     console.log($location.path() === url);
-            //     console.log(is_logged_in);
-            //     if (is_logged_in && $location.path() === url ){
-            //         console.log("asfasd")
-            //         location.path('home');
-            //     }
-            // })
-           
+            }else{
+                $location.path('/login');
+            }           
 
         })
         
