@@ -27,20 +27,19 @@
 				method: 'POST',
 				data: vm.user
 			}).then(function(response){
-
 				if ( response.data === null){
 					vm.message = "User does not exists";
 					vm.success = false;
 				}else if (!response.data.hasOwnProperty('success')){
+					console.log(response.data.has_taken_entrance);
 					LocalStorage.set('is_logged_in', true);
 					LocalStorage.set('is_admin', response.data.is_admin);
 					LocalStorage.set('user_id', response.data.id);
-					LocalStorage.set('has_taken_entance', response.data.has_taken_entance);
+					LocalStorage.set('has_taken_entance', response.data.has_taken_entrance);
 					window.location.reload();
 				}else{
 					vm.message = response.data.message;
 					vm.success = response.data.success;
-
 				}
 			})
 
@@ -80,6 +79,8 @@
 		    	if (choice){
 		    		LocalStorage.remove('is_logged_in');
 		    		LocalStorage.remove('user_id');
+		    		LocalStorage.remove('is_admin');
+		    		LocalStorage.remove('has_taken_entance');
 		    		window.location.reload();
 		    	}
 		    }, function () {

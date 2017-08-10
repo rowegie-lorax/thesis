@@ -1,66 +1,107 @@
  <uib-tabset active="active">
     <uib-tab index="0" heading="User information"> 
-    <div class="panel panel-info">
-		<div class="panel-heading">
-			<h3 class="panel-title"></h3>
-		</div>
-		<div class="panel-body">
-			<div class="row">
-				<div class=" col-md-9 col-lg-9 "> 
-					<table class="table table-user-information">
-						<tbody>
-							<tr>
-								<td>Firstname:</td>
-								<td>{{ vm.loggedInUser.first_name}}</td>
-							</tr>
-							<tr>
-								<td>Lastname:</td>
-								<td>{{ vm.loggedInUser.last_name}}</td>
-							</tr>
-							<tr>
-								<td>Date of Birth</td>
-								<td style="display:inline-block; min-height:290px;">
-									<div uib-datepicker ng-model="vm.loggedInUser.birthdate" class="well well-sm" datepicker-options="options"></div>
-								</td>
-							</tr>
-							<tr>
-								<td>Gender</td>
-								<td>{{vm.loggedInUser.birthdate}}</td>
-							</tr>
-							<tr>
-								<td>Home Address</td>
-								<td>Kathmandu,Nepal</td>
-							</tr>
-							<tr>
-								<td>Email</td>
-								<td>
-									<a href="mailto:{{ vm.loggedInUser.email}}">{{ vm.loggedInUser.email}}</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Phone Number</td>
-									<td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
-								</td>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title"></h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class=" col-md-9 col-lg-9 "> 
+                        <table class="table table-user-information">
+                            <tbody>
+                                <tr>
+                                    <td>Firstname:</td>
+                                    <td>{{ vm.loggedInUser.first_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Lastname:</td>
+                                    <td>{{ vm.loggedInUser.last_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Date of Birth</td>
+                                    <td style="display:inline-block; min-height:290px;">
+                                        <div uib-datepicker ng-model="vm.loggedInUser.birthdate" class="well well-sm" datepicker-options="options"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td>
+                                    <td>{{vm.loggedInUser.birthdate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Home Address</td>
+                                    <td>Kathmandu,Nepal</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>
+                                        <a href="mailto:{{ vm.loggedInUser.email}}">{{ vm.loggedInUser.email}}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Phone Number</td>
+                                        <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
+                                    </td>
 
-							</tr>
+                                </tr>
 
-						</tbody>
-					</table>
+                            </tbody>
+                        </table>
 
-					<button class="btn btn-primary" type="submit" ng-click="vm.update()">Update</button>
-				</div>
-			</div>
-		</div>
-		<div class="panel-footer">
-		</div>
+                        <button class="btn btn-primary" type="submit" ng-click="vm.update()">Update</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+            </div>
 
-		</div>
+        </div>
     </uib-tab>
 
     <uib-tab index="3" select="alertMe()">
-      <uib-tab-heading>
-        <i class="glyphicon glyphicon-bell"></i> Exam Results
-      </uib-tab-heading>
-      I've got an HTML heading, and a select callback. Pretty cool!
+        <uib-tab-heading>
+            Exam Results
+        </uib-tab-heading>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title" >Results</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Score:</th>
+                            <th>Total:</th>
+                            <th>Percentage:</th>
+                            <th>Result:</th>
+                            <th>Passing Rate:</th>
+                            <th>Exam Type:</th>
+                            <th>Date Taken (yyyy-mm-dd hh:mm:ss):</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="results in vm.exam_results">
+                        <tr ng-if="results.exam_result=='pass'" class="success">
+                            <td>{{ results.score }}</td>
+                            <td>{{ results.total }}</td>
+                            <td>{{ ( (results.score/results.total).toFixed(2) * 100) }}%</td>
+                            <td>{{ results.exam_result }}</td>
+                            <td>{{ results.passing_rate }}</td>
+                            <td>{{ results.exam_type }}</td>
+                            <td>{{ results.date_taken }}</td>
+                        </tr>
+                        <tr ng-if="results.exam_result=='fail'" class="danger">
+                            <td>{{ results.score }}</td>
+                            <td>{{ results.total }}</td>
+                            <td>{{ ( (results.score/results.total).toFixed(2) * 100) }}%</td>
+                            <td>{{ results.exam_result }}</td>
+                            <td>{{ results.passing_rate }}</td>
+                            <td>{{ results.exam_type }}</td>
+                            <td>{{ results.date_taken }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
     </uib-tab>
-</uib-tabset>	
+</uib-tabset>   

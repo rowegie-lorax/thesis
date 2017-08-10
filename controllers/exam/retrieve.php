@@ -18,6 +18,5 @@
 	$exam = new Exam($db);
 
 	echo json_encode($exam->retrieveAll());
-	// echo "HEllo";
    
 ?>

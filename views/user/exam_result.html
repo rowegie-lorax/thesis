@@ -1,0 +1,39 @@
+<div class="modal-header">
+	<h3 class="modal-title" id="modal-title">Exam Results</h3>
+</div>
+<div class="modal-body">
+	<table class="table">
+	    <thead>
+	      <tr>
+	        <th>Result:</th>
+	      </tr>
+	      <tr>
+	        <th>Score:</th>
+	        <th>Total:</th>
+	        <th>Percentage:</th>
+	        <th>Result:</th>
+	        <th>Passing Rate:</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	 
+	      <tr ng-if="vm.results.exam_result=='pass'" class="success">
+	        <td>{{ vm.results.score }}</td>
+	        <td>{{ vm.results.total }}</td>
+	        <td>{{ ( (vm.results.score/vm.results.total).toFixed(2) * 100 ) }}%</td>
+	        <td>{{ vm.results.exam_result }}</td>
+	        <td>{{ vm.passing_rate }}</td>
+	      </tr>
+	      <tr ng-if="vm.results.exam_result=='fail'" class="danger">
+	        <td>{{ vm.results.score }}</td>
+	        <td>{{ vm.results.total }}</td>
+	        <td>{{ ( (vm.results.score/vm.results.total).toFixed(2) * 100 ) }}%</td>
+	        <td>{{ vm.results.exam_result }}</td>
+	        <td>{{ vm.passing_rate }}</td>
+	      </tr>
+	    </tbody>
+	</table>
+ </div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="submit" ng-click="vm.ok()">Ok</button>
+</div>

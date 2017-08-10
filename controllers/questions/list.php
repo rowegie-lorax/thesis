@@ -16,8 +16,6 @@
 	$database = new Database();
 	$db = $database->getConnection();
 	$question = new Question($db);
-
-	$question->exam_id = $_GET['id'];
-	echo json_encode($question->retrieveSpecificQuestions());
+	echo json_encode($question->list());
 	
 ?>

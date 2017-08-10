@@ -18,7 +18,7 @@
 
 		function retrieveQuestions(){
 			$http({
-				url: 'http://localhost/thesis/controllers/questions/retrieve.php',
+				url: 'controllers/questions/list.php',
 				method: 'GET'
 			}).then(function(response){
 				console.log(response);
@@ -70,7 +70,7 @@
 
 		    modalInstance.result.then(function (question) {
 		    	$http({
-					url: 'http://localhost/thesis/controllers/questions/create.php',
+					url: 'controllers/questions/create.php',
 					method: 'POST',
 					data: question
 				}).then(function(response){

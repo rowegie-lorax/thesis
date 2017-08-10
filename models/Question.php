@@ -69,13 +69,12 @@
         }
 
         //retrieve all questions
-        public function retrieve(){
+        public function list(){
             try {
 
                 $query = "SELECT 
-                            questions.id, questions.question, questions.answer, 
-                            question_categories.category_name, exam.exam_type
-                            -- exam.id, exam.passing_rate
+                            questions.id, questions.question, questions.answer, questions.exam_id,
+                            question_categories.category_name, exam.exam_type, exam.passing_rate
                           FROM questions  
                           INNER JOIN question_categories on questions.category_id = question_categories.id 
                           INNER JOIN exam on questions.exam_id = exam.id";
@@ -110,6 +109,50 @@
         }
 
         public function retrieveSpecificQuestions(){
+            try {
+
+                $query = "SELECT 
+                            questions.id, questions.question, questions.answer, questions.exam_id,
+                            question_categories.category_name, exam.exam_type, exam.passing_rate
+                          FROM 
+                            questions  
+                          INNER JOIN question_categories 
+                            on questions.category_id = question_categories.id 
+                          INNER JOIN exam 
+                            on questions.exam_id = exam.id
+                          WHERE 
+                            questions.exam_id = :exam_id ";
+
+                $results = array();
+                $data =  array();
+                $stmt = $this->conn->prepare($query);
+
+                $this->exam_id=htmlspecialchars(strip_tags($this->exam_id));
+                $stmt->bindParam(":exam_id", $this->exam_id);
+
+                if ($stmt->execute()){
+                    // foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $value) {
+                    //     // echo $value['question'];
+                    //     $data = array(
+                    //         'category_name' => $value['category_name'],
+                    //         'question' => $value['question']
+                    //     );
+                    //     array_push($results, $data);
+                    // }
+                    // return(($stmt->fetchAll(PDO::FETCH_OBJ)));
+                    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    // // return $rsults;
+                    // // foreach( $results as $row ) {
+                    // //     echo $row['question'];
+                    // //     echo $row['answer'];
+                    // }
+                }
+              
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+
+            $conn = null;
             
         }
     }

@@ -1,52 +1,77 @@
 <div class="row">
-	<div 
-		ng-if="!vm.isFinised"
-		ng-repeat="question in vm.questions.slice(((vm.currentPage-1)*vm.itemsPerPage), ((vm.currentPage)*vm.itemsPerPage)) track by $index">
-		<pre >
-			{{question.question}}			
-		</pre>
-		{{ vm.currentPage}} > {{ vm.previousPage }} {{ vm.currentPage > vm.previousPage }}<br>
-		{{ vm.currentPage}} < {{ vm.previousPage }} {{ vm.previousPage > vm.currentPage }}
-		<div 
-			ng-repeat="choice in vm.choices | filter: {question_id: question.id}"
-			ng-init="vm.answer=question.answer">
-			<label>
-				<input 
-					type="radio" 
-					name="choiceAnswer"
-					ng-value="choice"
-					ng-model="vm.selected">
-				 
-			</label>
-			{{ choice.choice_name }}
-		</div>	
-	</div>
-	<div ng-if="vm.isFinised">
-		<pre>
-			<p> Your Score is: {{ vm.score }} out of {{ vm.totalItems}}</p>
-			<p> Percentage: {{ vm.score / vm.totalItems * 100 }} %</p>
-		</pre>
-	</div>
-  	<ul uib-pager
-  		ng-show="!vm.isFinised" 
-  		total-items="vm.totalItems" 
-  		ng-model="vm.currentPage" 
-  		items-per-page="vm.itemsPerPage"
-  		ng-change="vm.checkAnswer()"></ul>
+	<div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title" ng-if="vm.exam_id == 1">Entance Examination</h3>
+            <h3 class="panel-title" ng-if="vm.exam_id == 2">Promotional Examination</h3>
+            <div>
+            	Registration closes in <span id="time"></span> minutes!
+            	{{ vm.seconds }}
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+	                <div ng-if="!vm.isFinished" 
+	                	 ng-repeat="question in vm.questions.slice(((vm.currentPage-1)*vm.itemsPerPage), ((vm.currentPage)*vm.itemsPerPage)) track by $index">
 
-  	<uib-progressbar 
-  		ng-show="!vm.isFinised"
-  		class="progress-striped active"
-  		max="vm.totalItems"
-  		value="vm.currentPage" 
-  		type="success">
+						<div class="row" ng-init="vm.exam_type=question.exam_id">
+							<div class="col-md-2 col-lg-2"></div>
+							<div class="col-md-8 col-lg-8">
+								<center><b>{{question.question}}</b></center>	
+							</div>
+							<div class="col-md-2 col-lg-2"></div>
+		
+						</div>
+						<div class="row"></div>
+						<div class="row" ng-repeat="choice in vm.choices | filter: {question_id: question.id}"  >
+							<div class="col-md-3 col-lg-3"></div>
+							<div class="col-md-6 col-lg-6" ng-init="vm.answer=question.answer" >
+								 	
+								<label ng-init="vm.passing_rate=question.passing_rate">
+									<input 
+										type="radio" 
+										name="choiceAnswer"
+										ng-value="choice"
+										ng-model="vm.selected">
+									{{ choice.choice_name}}
 
-  	<b>{{ vm.currentPage}} / {{vm.totalItems }} </b>
-  	</uib-progressbar>
-  	<button 
-  		ng-show="vm.currentPage==vm.totalItems&&!vm.isFinised" 
-  		type="button" 
-  		class="btn btn-success"
-  		ng-click="vm.submitAnswer()">Submit Answers</button>
+									 
+								</label>
+
+							</div>
+							<div class="col-md-3 col-lg-3"></div>
+						
+						</div>	
+					</div>
+
+				  	<ul uib-pager
+				  		ng-show="!vm.isFinished" 
+				  		total-items="vm.totalItems" 
+				  		ng-model="vm.currentPage" 
+				  		items-per-page="vm.itemsPerPage"
+				  		ng-change="vm.checkAnswer()"></ul>
+
+				  	<uib-progressbar 
+				  		ng-show="!vm.isFinished"
+				  		class="progress-striped active"
+				  		max="vm.totalItems"
+				  		value="vm.currentPage" 
+				  		type="success">
+
+				  		<b>{{ vm.currentPage}} / {{vm.totalItems }} </b>
+				  	</uib-progressbar>
+	  				<button 
+				  		ng-show="vm.currentPage==vm.totalItems&&!vm.isFinished" 
+				  		type="button" 
+				  		class="btn btn-primary"
+				  		ng-click="vm.submitAnswer()">Submit Answers</button>
+                   
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+        </div>
+
+    </div>
 	
 </div>
