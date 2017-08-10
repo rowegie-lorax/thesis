@@ -73,7 +73,9 @@
             try {
 
                 $query = "SELECT 
-                            questions.id, questions.question, questions.answer, question_categories.category_name, exam.exam_type
+                            questions.id, questions.question, questions.answer, 
+                            question_categories.category_name, exam.exam_type
+                            -- exam.id, exam.passing_rate
                           FROM questions  
                           INNER JOIN question_categories on questions.category_id = question_categories.id 
                           INNER JOIN exam on questions.exam_id = exam.id";
@@ -98,7 +100,6 @@
                     // //     echo $row['answer'];
                     // }
                 }
-                return $results;
               
             }catch(PDOException $e){
                 return $e->getMessage();
@@ -106,6 +107,10 @@
 
             $conn = null;
 
+        }
+
+        public function retrieveSpecificQuestions(){
+            
         }
     }
 ?>

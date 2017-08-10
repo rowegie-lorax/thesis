@@ -1,22 +1,41 @@
 <div class="row">
-	<div ng-repeat="question in vm.questions.slice(((vm.currentPage-1)*vm.itemsPerPage), ((vm.currentPage)*vm.itemsPerPage)) track by $index">
+	<div 
+		ng-if="!vm.isFinised"
+		ng-repeat="question in vm.questions.slice(((vm.currentPage-1)*vm.itemsPerPage), ((vm.currentPage)*vm.itemsPerPage)) track by $index">
 		<pre >
 			{{question.question}}			
 		</pre>
-		<div ng-repeat="choice in vm.choices | filter: {question_id: question.id}">
+		{{ vm.currentPage}} > {{ vm.previousPage }} {{ vm.currentPage > vm.previousPage }}<br>
+		{{ vm.currentPage}} < {{ vm.previousPage }} {{ vm.previousPage > vm.currentPage }}
+		<div 
+			ng-repeat="choice in vm.choices | filter: {question_id: question.id}"
+			ng-init="vm.answer=question.answer">
 			<label>
 				<input 
 					type="radio" 
 					name="choiceAnswer"
-					ng-click="vm.checkAnswer(choice, question.answer)"> {{ choice.choice_name }}
-				
+					ng-value="choice"
+					ng-model="vm.selected">
+				 
 			</label>
+			{{ choice.choice_name }}
 		</div>	
 	</div>
-	
-  	<ul uib-pager total-items="vm.totalItems" ng-model="vm.currentPage" items-per-page="vm.itemsPerPage"></ul>
+	<div ng-if="vm.isFinised">
+		<pre>
+			<p> Your Score is: {{ vm.score }} out of {{ vm.totalItems}}</p>
+			<p> Percentage: {{ vm.score / vm.totalItems * 100 }} %</p>
+		</pre>
+	</div>
+  	<ul uib-pager
+  		ng-show="!vm.isFinised" 
+  		total-items="vm.totalItems" 
+  		ng-model="vm.currentPage" 
+  		items-per-page="vm.itemsPerPage"
+  		ng-change="vm.checkAnswer()"></ul>
 
   	<uib-progressbar 
+  		ng-show="!vm.isFinised"
   		class="progress-striped active"
   		max="vm.totalItems"
   		value="vm.currentPage" 
@@ -24,6 +43,10 @@
 
   	<b>{{ vm.currentPage}} / {{vm.totalItems }} </b>
   	</uib-progressbar>
-  	<button ng-show="vm.currentPage==vm.totalItems" type="button" class="btn btn-success">Submit Answers</button>
+  	<button 
+  		ng-show="vm.currentPage==vm.totalItems&&!vm.isFinised" 
+  		type="button" 
+  		class="btn btn-success"
+  		ng-click="vm.submitAnswer()">Submit Answers</button>
 	
 </div>

@@ -25,7 +25,7 @@
 		function getUserLoggedIn(){
 			var id = LocalStorage.get('user_id');
 			$http({
-    			url: 'http://localhost/thesis/controllers/user/retrieve.php', 
+    			url: 'controllers/user/retrieve.php', 
     			method: "GET",
     			params: {user_id: id}
  			}).then(function(response){
@@ -60,7 +60,7 @@
 			// vm.loggedInUser = clean(vm.loggedInUser);
 			vm.loggedInUser.id = LocalStorage.get('user_id');
 			$http({
-    			url: 'http://localhost/thesis/controllers/user/update.php', 
+    			url: 'controllers/user/update.php', 
     			method: "POST",
     			data: vm.loggedInUser
  			}).then(function(response){

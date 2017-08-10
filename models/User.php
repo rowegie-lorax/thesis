@@ -13,6 +13,7 @@
         public $email;
         public $password;
         public $is_admin;
+        public $has_taken_entrance;
         public $userObject;
      
         public function __construct($db){
@@ -26,6 +27,7 @@
             $this->email=htmlspecialchars(strip_tags($this->email));
             $this->password=htmlspecialchars(strip_tags($this->password));
             $this->is_admin=htmlspecialchars(strip_tags($this->is_admin));
+            $this->has_taken_entrance=htmlspecialchars(strip_tags($this->has_taken_entrance));
 
         }
         
@@ -52,8 +54,8 @@
                 $user_count = 0;
                 $user_count = $this->checkEmail();
                 if ($user_count == 0 ){
-                    $query = "INSERT INTO users (first_name, last_name, email, password, is_admin)
-                    VALUES (:firstName, :lastName, :email, :password, :is_admin)";
+                    $query = "INSERT INTO users (first_name, last_name, email, password, is_admin, has_taken_entrance)
+                    VALUES (:firstName, :lastName, :email, :password, :is_admin :has_taken_entrance)";
                     // prepare query
                     $stmt = $this->conn->prepare($query);
                     // bind values
@@ -63,6 +65,7 @@
                     $stmt->bindParam(":email", $this->email);
                     $stmt->bindParam(":password", $this->password);
                     $stmt->bindParam(":is_admin", $this->is_admin);
+                    $stmt->bindParam(":has_taken_entrance", $this->has_taken_entrance);
                     
                     if($stmt->execute()){
                         return array("message"=>"Successfully registered", 

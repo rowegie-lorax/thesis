@@ -7,7 +7,7 @@
 	header("Access-Control-Max-Age: 3600");
 	header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 	include_once '../../config/database.php';
-	include_once '../../models/User.php';
+	include_once '../../models/ExamResults.php';
 
 	// protected $user;
 	// protected $database;
@@ -15,22 +15,21 @@
 
 	$database = new Database();
 	$db = $database->getConnection();
-	$user = new User($db);
+	$exam_result = new ExamResults($db);
 	$data = json_decode(file_get_contents("php://input"));
 
-	$user->firstName = $data->firstName;
-	$user->lastName = $data->lastName;
-	$user->email = $data->email;
-	$user->password = password_hash($data->password, PASSWORD_DEFAULT);
-	$user->is_admin = 0;
-	$user->has_taken_entrance = 0;
-
+	$exam_result->user_id = $data->user_id;
+	$exam_result->exam_id = $data->exam_id;
+	$exam_result->score = $data->score;
+	$exam_result->total = $date->total;
+	$exam_result->date_taken = 0;
+	$exam_result->exam_result = $data->exam_result;
 
 
 	
 
 
-	echo json_encode($user->create());
+	echo json_encode($exam_result->create());
 	// echo "HEllo";
    
 ?>

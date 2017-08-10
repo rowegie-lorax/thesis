@@ -23,7 +23,7 @@
 
 		vm.login = function(){
 			$http({
-				url: 'http://localhost/thesis/controllers/user/login.php',
+				url: 'controllers/user/login.php',
 				method: 'POST',
 				data: vm.user
 			}).then(function(response){
@@ -35,6 +35,7 @@
 					LocalStorage.set('is_logged_in', true);
 					LocalStorage.set('is_admin', response.data.is_admin);
 					LocalStorage.set('user_id', response.data.id);
+					LocalStorage.set('has_taken_entance', response.data.has_taken_entance);
 					window.location.reload();
 				}else{
 					vm.message = response.data.message;
@@ -47,7 +48,7 @@
 
 		vm.register = function(){
 			$http({
-				url: 'http://localhost/thesis/controllers/user/create.php',
+				url: 'controllers/user/create.php',
 				method: 'POST',
 				data: vm.user
 			}).then(function(response){
