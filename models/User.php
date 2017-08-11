@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 
     class User{
@@ -48,6 +48,26 @@
                 return $e->getMessage();
             }
         }
+
+        //retrieve specific user
+        public function list(){
+            try {
+
+                $query = "SELECT first_name, last_name, email, birthdate FROM users";
+                $stmt = $this->conn->prepare($query);
+                
+                if ($stmt->execute()){
+                    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                }
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+
+            $conn = null;
+
+        }
+
         // create user
         public function create(){
             try {

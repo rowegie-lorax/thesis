@@ -20,8 +20,10 @@
 			address: ''
 		}
 		vm.message="true";
+
 		getUserLoggedIn();
 		getExamResults();
+		getUsers();
 		
 
 		function getUserLoggedIn(){
@@ -40,6 +42,19 @@
 	 				}
  				
 
+ 				}
+ 				
+ 			});
+
+		}
+
+		function getUsers(){
+			$http({
+    			url: 'controllers/user/list.php', 
+    			method: "GET",
+ 			}).then(function(response){
+ 				if(response.data.length > 0){
+ 					vm.users = response.data;
  				}
  				
  			});

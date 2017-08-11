@@ -49,6 +49,12 @@
                 templateUrl: 'views/user/exam.html',
                 controller: 'TakeExamController',
                 controllerAs: 'vm'
+            })
+            .state('users', {
+                url: '/users',
+                templateUrl: 'views/admin/user.html',
+                controller: 'MainController',
+                controllerAs: 'vm'
             });
 
             
@@ -63,9 +69,10 @@
 
         $rootScope.$on('$locationChangeStart', function(){
             var is_logged_in = LocalStorage.get('is_logged_in');
-            var urls = ['/login', '/register'];
+            var urls = ['/login', '/register', '/users'];
 
             if (is_logged_in){
+                console.log(urls.indexOf($location.path()))
                 if ( urls.indexOf($location.path()) != -1 ){
                     $location.path('/home')
                 }

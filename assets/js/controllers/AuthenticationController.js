@@ -46,11 +46,13 @@
 		}
 
 		vm.register = function(){
+			console.log(vm.user);
 			$http({
 				url: 'controllers/user/create.php',
 				method: 'POST',
 				data: vm.user
 			}).then(function(response){
+				console.log(response);
 				if (response.data.success){
 					alert("Successful registration!");
 					$state.go('login');
