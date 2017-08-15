@@ -54,8 +54,8 @@
                 $user_count = 0;
                 $user_count = $this->checkEmail();
                 if ($user_count == 0 ){
-                    $query = "INSERT INTO users (first_name, last_name, email, password, is_admin, has_taken_entrance)
-                    VALUES (:firstName, :lastName, :email, :password, :is_admin :has_taken_entrance)";
+                    $query = "INSERT INTO users (first_name, last_name, email, password, is_admin)
+                    VALUES (:firstName, :lastName, :email, :password, :is_admin)";
                     // prepare query
                     $stmt = $this->conn->prepare($query);
                     // bind values
@@ -65,7 +65,6 @@
                     $stmt->bindParam(":email", $this->email);
                     $stmt->bindParam(":password", $this->password);
                     $stmt->bindParam(":is_admin", $this->is_admin);
-                    $stmt->bindParam(":has_taken_entrance", $this->has_taken_entrance);
                     
                     if($stmt->execute()){
                         return array("message"=>"Successfully registered", 
@@ -78,7 +77,7 @@
                 }
                 
             }catch(PDOException $e){
-                return $e->getMessage();
+                return "SQL Error";
             }
 
             $conn = null;
@@ -158,9 +157,10 @@
 
                 $stmt = $this->conn->prepare($query);
                 $stmt->execute($values);
-                if ( $stmt->rowCount() > 0 ){
-                    return array('message' => "Updated Successfully", 'success' => true  );
-                }
+                return $stmt->rowCount();
+                // if ( $stmt->rowCount() > 0 ){
+                //     return array('message' => "Updated Successfully", 'success' => true  );
+                // }
                 
 
             }catch(PDOException $e){

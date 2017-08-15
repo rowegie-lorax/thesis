@@ -46,7 +46,7 @@
 
       function timesUp() {
         alert("Time is up!");
-        window.clearInterval();
+        clearTimeout();
         vm.submitAnswer();
 
       }
@@ -134,7 +134,6 @@
         vm.selected.answer = vm.answer;
         vm.answers.push(vm.selected);
       }
-      console.log(vm.answers);
       if (vm.answers.length > 0){
         angular.forEach(vm.answers, function(value, key){
           if (value['choice_name'].toUpperCase() === value['answer'].toUpperCase()){
@@ -161,34 +160,37 @@
         data: vm.result
       }).then(function(response){
         console.log(response);
-        if(response.data.success== "True"){
-          var modalInstance = $uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: 'views/user/exam_result.html',
-            controller: 'ModalResultController',
-            controllerAs: 'vm',
-            size: 'md',
-            // backdrop: false,
-            resolve: {
-              results: function(){
-                  return vm.result;
-              },
-              passing_rate: function(){
-                return vm.passing_rate
-              }
+        // if(response.data.success== "True"){
+        //   var modalInstance = $uibModal.open({
+        //     animation: true,
+        //     ariaLabelledBy: 'modal-title',
+        //     ariaDescribedBy: 'modal-body',
+        //     templateUrl: 'views/user/exam_result.html',
+        //     controller: 'ModalResultController',
+        //     controllerAs: 'vm',
+        //     size: 'md',
+        //     // backdrop: false,
+        //     resolve: {
+        //       results: function(){
+        //           return vm.result;
+        //       },
+        //       passing_rate: function(){
+        //         return vm.passing_rate
+        //       }
               
-            }
+        //     }
 
-          });
+        //   });
 
-          modalInstance.result.then(function () {
-            $state.go('profile');
-          }, function () {
-            $state.go('profile');
-          });
-        }
+        //   modalInstance.result.then(function () {
+        //     $state.go('profile', {}, {reload:true});
+        //     window.location.reload();
+        //   }, function () {
+        //     $state.go('profile', {}, {reload:true});
+        //     window.location.reload();
+            
+        //   });
+        // }
       });
       
     }

@@ -7,9 +7,9 @@
 		.controller('QuestionController', QuestionController)
 		.controller('ModalQuestionCtrl', ModalQuestionCtrl);
 
-	QuestionController.$inject = ['$http', '$uibModal'];
+	QuestionController.$inject = ['$http', '$state', '$uibModal'];
 
-	function QuestionController($http, $uibModal){
+	function QuestionController($http, $state, $uibModal){
 		var vm = this;
 
 		getQuestionCategories();
@@ -21,9 +21,7 @@
 				url: 'controllers/questions/list.php',
 				method: 'GET'
 			}).then(function(response){
-				console.log(response);
 				vm.questions = response.data;
-				console.log(vm.questions);
 			})
 
 		}
@@ -74,7 +72,9 @@
 					method: 'POST',
 					data: question
 				}).then(function(response){
-					console.log(response.data);
+					if (response.data.hasOwnProperty('success')){
+						$state.reload();
+					}
 				})
 
 		    }, function () {

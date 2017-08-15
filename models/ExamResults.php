@@ -30,6 +30,28 @@
 
         }
 
+        public function update_user(){
+            $this->has_taken_entrance = 1;
+            try {
+                    $query = "UPDATE users SET has_taken_entrance = 1 WHERE id = :id";
+                    // prepare query
+                    $stmt = $this->conn->prepare($query);
+                    // bind values
+                    $stmt->bindParam(":id", $this->user_id);
+                   
+                    if($stmt->execute()){
+                        return True;
+                    }else{
+                        return array('message' => "Error",
+                                     'success' => 'False');
+                    }
+
+            }catch(PDOException $e){
+                return array('message' => $e->getMessage(),
+                             'success' => 'False');
+            }
+        }
+
         // create exam_result
         public function create(){
             try {
@@ -47,7 +69,8 @@
                     $stmt->bindParam(":exam_result", $this->exam_result);
                     
                     if($stmt->execute()){
-                        return array("message"=>"Exam Results saved", 
+                        if($this->update_user())
+                            return array("message"=>"Exam Results saved", 
                                      "success"=>"True");
                     }else{
                         return array('message' => "Error",

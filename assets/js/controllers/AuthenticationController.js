@@ -51,6 +51,7 @@
 				method: 'POST',
 				data: vm.user
 			}).then(function(response){
+				console.log(response);
 				if (response.data.success){
 					alert("Successful registration!");
 					$state.go('login');

@@ -71,7 +71,12 @@
                 }
 
             }else{
-                $location.path('/login');
+                if($location.path() == '/register'){
+                    $location.path('/register');
+                }else{
+                    $location.path('/login');
+                }
+                
             }           
 
         })

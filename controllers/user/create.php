@@ -9,10 +9,6 @@
 	include_once '../../config/database.php';
 	include_once '../../models/User.php';
 
-	// protected $user;
-	// protected $database;
-	// protected $db;
-
 	$database = new Database();
 	$db = $database->getConnection();
 	$user = new User($db);
@@ -23,14 +19,7 @@
 	$user->email = $data->email;
 	$user->password = password_hash($data->password, PASSWORD_DEFAULT);
 	$user->is_admin = 0;
-	$user->has_taken_entrance = 0;
-
-
-
-	
-
 
 	echo json_encode($user->create());
-	// echo "HEllo";
    
 ?>
