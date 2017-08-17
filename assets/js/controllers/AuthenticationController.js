@@ -46,6 +46,7 @@
 		}
 
 		vm.register = function(){
+			console.log(vm.user);
 			$http({
 				url: 'controllers/user/create.php',
 				method: 'POST',

@@ -69,12 +69,13 @@
         }
 
         //retrieve all questions
-        public function list(){
+        public function retrieve(){
             try {
 
                 $query = "SELECT 
                             questions.id, questions.question, questions.answer, questions.exam_id,
                             question_categories.category_name, exam.exam_type, exam.passing_rate
+                            -- exam.id, exam.passing_rate
                           FROM questions  
                           INNER JOIN question_categories on questions.category_id = question_categories.id 
                           INNER JOIN exam on questions.exam_id = exam.id";
@@ -113,23 +114,17 @@
 
                 $query = "SELECT 
                             questions.id, questions.question, questions.answer, questions.exam_id,
-                            question_categories.category_name, exam.exam_type, exam.passing_rate
-                          FROM 
-                            questions  
-                          INNER JOIN question_categories 
-                            on questions.category_id = question_categories.id 
-                          INNER JOIN exam 
-                            on questions.exam_id = exam.id
-                          WHERE 
-                            questions.exam_id = :exam_id ";
+                            question_categories.category_name, exam.exam_type,exam.passing_rate
+                          FROM questions  
+                          INNER JOIN question_categories on questions.category_id = question_categories.id 
+                          INNER JOIN exam on questions.exam_id = exam.id
+                          WHERE exam_id = :exam_id";
 
                 $results = array();
                 $data =  array();
                 $stmt = $this->conn->prepare($query);
-
                 $this->exam_id=htmlspecialchars(strip_tags($this->exam_id));
                 $stmt->bindParam(":exam_id", $this->exam_id);
-
                 if ($stmt->execute()){
                     // foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $value) {
                     //     // echo $value['question'];
@@ -153,7 +148,8 @@
             }
 
             $conn = null;
-            
+
+
         }
     }
 ?>
